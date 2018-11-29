@@ -1,0 +1,53 @@
+#EXTM3U
+#EXTINF:-1,Avto Radio
+http://radio.npz.com:8000/auto
+#EXTINF:-1,Online Radio Lounge [myRadio.ua]
+http://radio.npz.com:8000/lounge
+#EXTINF:-1,Эхо Москвы
+http://radio.npz.com:8000/echo
+#EXTINF:-1,NASHE Radio (101.7 FM) Moscow
+http://radio.npz.com:8000/nashe
+#EXTINF:-1,Rock
+http://radio.npz.com:8000/rock
+#EXTINF:-1,Russian Radio - Minsk
+http://radio.npz.com:8000/russkoe
+#EXTINF:-1,Best FM
+http://radio.npz.com:8000/bestfm
+#EXTINF:-1,Europa Plus
+http://radio.npz.com:8000/europaplus
+#EXTINF:-1,Маяк FM
+http://radio.npz.com:8000/mayakfm
+#EXTINF:-1,Soft Classic Rock
+http://radio.npz.com:8000/classic_rock
+#EXTINF:-1,Radio Roks
+http://radio.npz.com:8000/radioroks
+#EXTINF:-1,Radio Italia Classic
+http://radio.npz.com:8000/classic
+#EXTINF:-1,Вести ФМ
+http://radio.npz.com:8000/vesti
+#EXTINF:-1,Aplus Relax
+http://radio.npz.com:8000/aplus_relax
+#EXTINF:-1,1FM 90
+http://radio.npz.com:8000/1fm90
+#EXTINF:-1,1FM Ballads
+http://radio.npz.com:8000/1fmballads
+#EXTINF:-1,1FM Club
+http://radio.npz.com:8000/1fmclub
+#EXTINF:-1,Радыё 1
+http://radio.npz.com:8000/radio1
+#EXTINF:-1,Серебряный дождь
+http://radio.npz.com:8000/silverrain
+#EXTINF:-1,Aplus First
+http://radio.npz.com:8000/aplus_first
+#EXTINF:-1,Гомель ФМ
+http://radio.npz.com:8000/gomelfm
+#EXTINF:-1,Aplus Beat
+http://radio.npz.com:8000/aplus_beat
+#EXTINF:-1,Радио ОНТ
+http://radio.npz.com:8000/ont
+#EXTINF:-1,Ретро FM
+http://radio.npz.com:8000/retrofm
+#EXTINF:-1,Radius FM 
+http://radio.npz.com:8000/radius_main.mp3 
+#EXTINF:-1,Радыё Сталiца 
+http://radio.npz.com:8000/stolica.mp3

@@ -108,7 +108,7 @@ procedure TForm2.Button4Click(Sender: TObject);
 begin
   CheckBox_Autorun.Checked := False;
   CheckBox_Autoplay.Checked := True;
-  UpDown_Timeout.Position := 5;
+  UpDown_Timeout.Position := 10;
   UpDown_BufferSize.Position := 500;
   ColorPanel.Color := $000080FF{00FFBF80};
   ComboBox_Font.ItemIndex := 0;

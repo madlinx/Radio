@@ -32,6 +32,8 @@ type
     Label_Channels: TLabel;
     Label_ListenersPeak: TLabel;
     Button1: TButton;
+    Edit_Station: TEdit;
+    Label_Station: TLabel;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure Button_CloseClick(Sender: TObject);
     procedure Button1Click(Sender: TObject);
@@ -88,9 +90,13 @@ begin
   FRadioStation := Value;
 
   FillChar(Statistics, SizeOf(TIcecastStatisticsList), #0);
-  if Value <> nil
-    then Value.GetIcecastStatus(@Statistics);
+  if Value <> nil then
+  begin
+    Statistics.Station := Value.Station;
+    Value.GetIcecastStatus(@Statistics);
+  end;
 
+  Edit_Station.Text := Statistics.Station;
   Edit_StreamName.Text := Statistics.StreamName;
   Edit_StreamDescription.Text := Statistics.StreamDescription;
   Edit_ContentType.Text := Statistics.ContentType;

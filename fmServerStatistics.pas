@@ -95,9 +95,7 @@ end;
 
 procedure TForm_ServerStatistics.Button_RefreshClick(Sender: TObject);
 begin
-  ListView_Statistics.Clear;
-  GetIcecastServerStatistics(FServerURL, FList);
-  ListView_Statistics.Items.Count := FList.Count;
+  SetServerURL(FServerURL);
 end;
 
 procedure TForm_ServerStatistics.FormClose(Sender: TObject;

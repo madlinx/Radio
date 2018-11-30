@@ -1,10 +1,10 @@
 object Form_ServerStatistics: TForm_ServerStatistics
   Left = 0
   Top = 0
-  BorderIcons = [biSystemMenu]
+  BorderIcons = [biSystemMenu, biMaximize]
   Caption = #1057#1090#1072#1090#1080#1089#1090#1080#1082#1072' '#1089#1077#1088#1074#1077#1088#1072
-  ClientHeight = 529
-  ClientWidth = 777
+  ClientHeight = 551
+  ClientWidth = 774
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -16,15 +16,15 @@ object Form_ServerStatistics: TForm_ServerStatistics
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   DesignSize = (
-    777
-    529)
+    774
+    551)
   PixelsPerInch = 96
   TextHeight = 13
   object ListView_Statistics: TListView
     Left = 8
     Top = 8
-    Width = 761
-    Height = 482
+    Width = 758
+    Height = 504
     Anchors = [akLeft, akTop, akRight, akBottom]
     Columns = <
       item
@@ -85,32 +85,33 @@ object Form_ServerStatistics: TForm_ServerStatistics
     RowSelect = True
     TabOrder = 0
     ViewStyle = vsReport
+    OnColumnClick = ListView_StatisticsColumnClick
     OnData = ListView_StatisticsData
-    ExplicitWidth = 658
-    ExplicitHeight = 408
+    ExplicitWidth = 761
+    ExplicitHeight = 482
   end
   object Button_Close: TButton
-    Left = 694
-    Top = 496
+    Left = 691
+    Top = 518
     Width = 75
     Height = 25
     Anchors = [akRight, akBottom]
     Caption = #1047#1072#1082#1088#1099#1090#1100
     TabOrder = 1
     OnClick = Button_CloseClick
-    ExplicitLeft = 552
-    ExplicitTop = 303
+    ExplicitLeft = 694
+    ExplicitTop = 496
   end
   object Button_Refresh: TButton
-    Left = 613
-    Top = 496
+    Left = 610
+    Top = 518
     Width = 75
     Height = 25
     Anchors = [akRight, akBottom]
     Caption = #1054#1073#1085#1086#1074#1080#1090#1100
     TabOrder = 2
     OnClick = Button_RefreshClick
-    ExplicitLeft = 471
-    ExplicitTop = 303
+    ExplicitLeft = 613
+    ExplicitTop = 496
   end
 end

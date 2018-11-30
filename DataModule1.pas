@@ -80,6 +80,7 @@ begin
     CallingForm := RadioMOR_MainForm;
     ServerURL := PlayList.Sources[0].URL;
     Position := poMainFormCenter;
+//    WindowState := wsMaximized;
     Show;
     RadioMOR_MainForm.Enabled := False;
   end;

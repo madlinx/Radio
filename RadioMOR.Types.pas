@@ -60,6 +60,7 @@ type
 type
   PIcecastStatistics = ^TIcecastStatistics;
   TIcecastStatistics = record
+    Station: string;
     StreamName:	string;
     StreamDescription: string;
     ContentType: string;
@@ -217,6 +218,7 @@ begin
         begin
           with AOut^ do
           begin
+            Station := Self.FStation;
             try StreamName := FixCharset(JSONValue.GetValue<string>('server_name')) except end;
             try StreamDescription := FixCharset(JSONValue.GetValue<string>('server_description')) except end;
             try ContentType := FixCharset(JSONValue.GetValue<string>('server_type')) except end;

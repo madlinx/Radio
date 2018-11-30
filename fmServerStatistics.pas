@@ -5,7 +5,7 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ComCtrls, Vcl.StdCtrls, RadioMOR.Types,
-  RadioMOR.Common, RadioMOR.GlobalVar;
+  RadioMOR.Common, RadioMOR.GlobalVar, System.RTTI;
 
 type
   TForm_ServerStatistics = class(TForm)
@@ -18,6 +18,8 @@ type
     procedure Button_RefreshClick(Sender: TObject);
     procedure ListView_StatisticsData(Sender: TObject; Item: TListItem);
     procedure Button_CloseClick(Sender: TObject);
+    procedure ListView_StatisticsColumnClick(Sender: TObject;
+      Column: TListColumn);
   private
     FServerURL: string;
     FCallingForm: TForm;
@@ -36,7 +38,55 @@ implementation
 
 {$R *.dfm}
 
+var
+  SortOrder: Integer;
+  SortPropertyName: string;
+
 { TForm_ServerStatistics }
+
+function CompareByPropertyName(P1, P2: Pointer): Integer;
+var
+  RTTIType: TRTTIType;
+  TypeFields: TArray<TRttiField>;
+  TypeField: TRttiField;
+  i: Integer;
+
+  Obj1: TIcecastStatistics;
+  Obj2: TIcecastStatistics;
+  ValueP1: Variant;
+  ValueP2: Variant;
+begin
+  if SortPropertyName.IsEmpty then
+  begin
+    Result := 0;
+    Exit;
+  end;
+
+  Obj1 := PIcecastStatistics(P1)^;
+  Obj2 := PIcecastStatistics(P2)^;
+
+  RTTIType := TRTTIContext.Create.GetType(TypeInfo(TIcecastStatistics));
+  TypeFields := RTTIType.GetFields;
+
+  for TypeField in TypeFields do
+    if CompareText(SortPropertyName, TypeField.Name) = 0 then Break;
+
+  ValueP1 := TypeField.GetValue(@Obj1).AsVariant;
+  ValueP2 := TypeField.GetValue(@Obj2).AsVariant;
+
+  if VarCompareValue(ValueP1, ValueP2) = vrEqual then
+  begin
+    Result := 0;
+  end else if VarCompareValue(ValueP1, ValueP2) = vrGreaterThan then
+  begin
+    Result := 1;
+  end else
+  begin
+    Result := -1;
+  end;
+
+  Result := Result * SortOrder;
+end;
 
 procedure TForm_ServerStatistics.Button_CloseClick(Sender: TObject);
 begin
@@ -74,19 +124,45 @@ begin
   FList.Free;
 end;
 
+procedure TForm_ServerStatistics.ListView_StatisticsColumnClick(Sender: TObject;
+  Column: TListColumn);
+var
+  CurrentSortedField: string;
+begin
+  CurrentSortedField := SortPropertyName;
+
+  case Column.Index of
+    0: SortPropertyName := 'Station';
+    1: SortPropertyName := 'StreamName';
+    2: SortPropertyName := 'StreamDescription';
+    3: SortPropertyName := 'ContentType';
+    4: SortPropertyName := 'StreamStarted';
+    5: SortPropertyName := 'Channels';
+    6: SortPropertyName := 'Bitrate';
+    7: SortPropertyName := 'Samplerate';
+    8: SortPropertyName := 'Listeners';
+    9: SortPropertyName := 'ListenersPeak';
+    10: SortPropertyName := 'Genre';
+    11: SortPropertyName := 'StreamURL';
+    12: SortPropertyName := 'CurrentlyPlaying';
+    else SortPropertyName := '';
+  end;
+
+  if CompareText(CurrentSortedField, SortPropertyName) = 0
+    then SortOrder := SortOrder * -1
+    else SortOrder := 1;
+
+  FList.Sort(CompareByPropertyName);
+  ListView_Statistics.Invalidate;
+end;
+
 procedure TForm_ServerStatistics.ListView_StatisticsData(Sender: TObject;
   Item: TListItem);
-var
-  i: Integer;
 begin
   while Item.SubItems.Count < 12 do
     Item.SubItems.Add('');
 
-  i := PlayList.GetItemIndexByURL(FList[Item.Index].ListenURL);
-
-  if i > -1
-    then Item.Caption := PlayList.Sources[i].Station
-    else Item.Caption := FList[Item.Index].ListenURL;
+  Item.Caption := FList[Item.Index].Station;
   Item.SubItems[0] := FList[Item.Index].StreamName;
   Item.SubItems[1] := FList[Item.Index].StreamDescription;
   Item.SubItems[2] := FList[Item.Index].ContentType;
@@ -107,10 +183,23 @@ begin
 end;
 
 procedure TForm_ServerStatistics.SetServerURL(const Value: string);
+var
+  i: Integer;
+  item: PIcecastStatistics;
 begin
   FServerURL := Value;
+  SortOrder := 1;
   ListView_Statistics.Clear;
   GetIcecastServerStatistics(Value, FList);
+
+  for item in FList do
+  begin
+    i := PlayList.GetItemIndexByURL(item^.ListenURL);
+    if i > -1
+      then item^.Station := PlayList.Sources[i].Station
+      else item^.Station := item^.ListenURL;
+  end;
+
   ListView_Statistics.Items.Count := FList.Count;
 end;
 

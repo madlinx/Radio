@@ -224,7 +224,10 @@ begin
             try ContentType := FixCharset(JSONValue.GetValue<string>('server_type')) except end;
             try 
               RegEx := TRegEx.Create('(?<=(T\d{2}:\d{2}:\d{2})[+-])(\d{2})', [roIgnoreCase]);
-              StreamStarted := ISO8601ToDate(RegEx.Replace(JSONValue.GetValue<string>('stream_start_iso8601'), '$2:'));
+              StreamStarted := ISO8601ToDate(
+                RegEx.Replace(JSONValue.GetValue<string>('stream_start_iso8601'), '$2:'),
+                False
+              );
             except
 
             end;
